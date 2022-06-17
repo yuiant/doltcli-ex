@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Enhanced Dolt CLI"
 authors = ["yuiant <gyuiant@gmail.com>"]
 license = "MIT"
-readme="README.org"
+# readme="README.org"
 homepage="https://github.com/yuiant/doltcli-ex"
 repository="https://github.com/yuiant/doltcli-ex"
 
@@ -17,7 +17,7 @@ doltrm="doltcli_ex.scripts.rm:main"
 [tool.poetry.dependencies]
 python = "^3.7"
 doltpy = "2.0.13"
-pandas = "^1.4.2"
+pandas = "*"
 
 [tool.poetry.dev-dependencies]
 
