@@ -3,9 +3,6 @@
 
 import sys
 
-sys.path.append("../doltcli_ex")
-
-
 from doltcli_ex.operate import remove
 
 
