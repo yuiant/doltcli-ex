@@ -8,24 +8,25 @@ from typing import Dict, List, Tuple, Union
 import pandas as pd
 from doltcli import Dolt, write_rows
 
-from .io import read_json
+from doltcli_ex.io import read_json
 
 CONVENTION_FILES = ["README.md", "LICENSE.md"]
 DATA_MODE_NAMES = ["train", "dev", "test", "submit", "trial"]
 
 
 def transform(filepath: Union[str, Path]) -> Tuple[str, List[Dict]]:
-    """transform data file into dict list(rows)
+    """transform data file into a list of dict (rows)
 
     Args:
         filepath (Union[str, Path]): data file path
 
     Raises:
-        Exception: raise when invalid format of data file occurs.
+        Exception: raise when some wrong data format or content occurs.
 
     Returns:
         Tuple[str, List[Dict]]: name and the rows
     """
+
     basename = os.path.basename(filepath)
     name, suffix = basename.split(".")
 
@@ -33,7 +34,12 @@ def transform(filepath: Union[str, Path]) -> Tuple[str, List[Dict]]:
         return name, pd.read_csv(filepath).to_dict(orient="records")
 
     elif suffix == "json":
-        return name, list(read_json(filepath))
+        data = read_json(filepath)
+        if data is not None:
+            return name, list(data)
+
+        else:
+            raise Exception("None of data")
 
     else:
         raise Exception("Invalid Format")
@@ -65,7 +71,7 @@ def add(path: Union[str, Path]) -> None:
 
 
 def remove(name: str) -> None:
-    """remove
+    """enhance remove method
 
     Args:
         name (str): name of a specific md file or table
@@ -73,7 +79,7 @@ def remove(name: str) -> None:
     cwd = os.getcwd()
     repo = Dolt(cwd)
 
-    if name in [CONVENTION_FILES] + [DATA_MODE_NAMES]:
+    if name in CONVENTION_FILES + DATA_MODE_NAMES:
         os.remove(name)
 
     else:
