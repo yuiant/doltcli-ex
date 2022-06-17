@@ -79,8 +79,12 @@ def remove(name: str) -> None:
     cwd = os.getcwd()
     repo = Dolt(cwd)
 
-    if name in CONVENTION_FILES + DATA_MODE_NAMES:
+    if name in CONVENTION_FILES:
         os.remove(name)
 
+    elif name in DATA_MODE_NAMES:
+        repo.execute(args=["table", "rm", name])
+
     else:
+        # TODO: more friendly solution
         repo.execute(args=["table", "rm", name])
