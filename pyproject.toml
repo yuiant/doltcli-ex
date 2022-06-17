@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "doltcli-ex"
-version = "0.1.0"
+version = "0.1.12"
 description = "Enhanced Dolt CLI"
 authors = ["yuiant <gyuiant@gmail.com>"]
 license = "MIT"
